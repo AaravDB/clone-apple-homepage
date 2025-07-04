@@ -3,13 +3,27 @@ import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProductData } from '@/components/ProductDetailPage';
+import { useCart } from '@/contexts/CartContext';
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 interface ProductCardProps {
   product: ProductData;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+    toast({
+      title: "Added to Cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
   return (
     <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
       <Link to={`/${product.id}`}>
@@ -37,10 +51,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               From {product.startingPrice}
             </span>
             <Button 
+              onClick={handleAddToCart}
               size="sm" 
               className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full"
             >
-              Buy
+              Add to Cart
             </Button>
           </div>
         </div>

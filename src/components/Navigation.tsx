@@ -1,11 +1,13 @@
 
 import React, { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Search, ShoppingCart } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { useCart } from '@/contexts/CartContext';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { getTotalItems } = useCart();
 
   const navItems = [
     { name: 'Store', href: '/store' },
@@ -20,6 +22,8 @@ const Navigation = () => {
   const isActiveRoute = (href: string) => {
     return location.pathname === href;
   };
+
+  const totalItems = getTotalItems();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-xl border-b border-gray-800">
@@ -53,11 +57,20 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Search Icon */}
-          <div className="flex items-center">
+          {/* Search and Cart Icons */}
+          <div className="flex items-center space-x-2">
             <button className="text-gray-300 hover:text-white transition-colors p-2">
               <Search className="w-4 h-4" />
             </button>
+            
+            <Link to="/cart" className="relative text-gray-300 hover:text-white transition-colors p-2">
+              <ShoppingCart className="w-4 h-4" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
             
             {/* Mobile menu button */}
             <button
@@ -91,6 +104,13 @@ const Navigation = () => {
                   {item.name}
                 </Link>
               ))}
+              <Link
+                to="/cart"
+                className="block px-3 py-2 text-sm text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Cart {totalItems > 0 && `(${totalItems})`}
+              </Link>
             </div>
           </div>
         )}
