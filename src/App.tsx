@@ -1,9 +1,15 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import iPhone from "./pages/iPhone";
+import MacBook from "./pages/MacBook";
+import iPad from "./pages/iPad";
+import Watch from "./pages/Watch";
+import AirPods from "./pages/AirPods";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -16,6 +22,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/iphone" element={<iPhone />} />
+          <Route path="/macbook" element={<MacBook />} />
+          <Route path="/ipad" element={<iPad />} />
+          <Route path="/watch" element={<Watch />} />
+          <Route path="/airpods" element={<AirPods />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
