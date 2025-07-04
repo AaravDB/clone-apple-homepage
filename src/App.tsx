@@ -10,6 +10,7 @@ import MacBook from "./pages/MacBook";
 import iPad from "./pages/iPad";
 import Watch from "./pages/Watch";
 import AirPods from "./pages/AirPods";
+import Store from "./pages/Store";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/store" element={<Store />} />
           <Route path="/iphone" element={<iPhone />} />
           <Route path="/macbook" element={<MacBook />} />
           <Route path="/ipad" element={<iPad />} />

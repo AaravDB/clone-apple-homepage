@@ -8,6 +8,7 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
+    { name: 'Store', href: '/store' },
     { name: 'Mac', href: '/macbook' },
     { name: 'iPad', href: '/ipad' },
     { name: 'iPhone', href: '/iphone' },
